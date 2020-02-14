@@ -1,16 +1,74 @@
 {% extends 'base.html' %}
 
-{% block title  %} ANA SAYFA - {{ block.super }} {% endblock %}
+{% block title %} ANA SAYFA - {{ block.super }} {% endblock %}
 
 {% block body %}
 
 
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-    <img src="{{ img }}"/>
-  <p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
+    {% if user.is_authenticated %}
+        Hi {{ user.username }}!
+       <center><img src="{{ img }}" width="450px"/></center>
+        <p><a href="{% url 'logout' %}">logout</a></p>
+        <label>Search All: <input id="search_input" type="search" class="" placeholder="" aria-controls="example"></label>
+    <table id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>Title</th>
+            <th>Desc</th>
+            <th>Img</th>
+        </tr>
+        </tfoot>
+    </table>
+        <p><a href="{% url 'logout' %}">logout</a></p>
+        <script type="application/javascript">
+            var qq, table;
+            $('#search_input').bind("enterKey",function(e){
+               qq = $('#search_input').val();
+                table.ajax.reload();
+            });
+            $('#search_input').keyup(function(e){
+                if(e.keyCode == 13)
+                {
+                    $(this).trigger("enterKey");
+                }
+            });
+            $(document).ready(function () {
+                qq = "moon"
+                table = $('#example').DataTable({
+                    "ajax": {
+                        'url': "https://images-api.nasa.gov/search?media_type=image",
+                        "cache": true,
+                        "dataSrc": "collection.items",
+                        "data": function (data) {
+                            data.q = qq;
+                        },
+                    },
+                    "columns": [
+                        {"data": "data.0.title"},
+                        {"data": "data.0.description"},
+                        {"data": "links.0.href"},
+                    ],
+                    "columnDefs": [
+                        {
+                            "render": function (data, type, row) {
+                                return "<a  target=\"_blank\" href=\"" + data + "\" width=\"30px\"><img src=\"" + data + "\" width=\"30px\"/></a>"
+                            },
+                            "targets": 2
+                        },
+                    ]
+                });
+            });
+
+        </script>
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">login</a>
     {% endif %}
 {% endblock %}

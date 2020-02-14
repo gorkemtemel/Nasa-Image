@@ -20,7 +20,7 @@ from home.views import home_view
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.conf.urls import include
 from django.views.generic.base import TemplateView # new
 
 
@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^accounts/', include('accounts.url')),
 
     url(r'^admin/', admin.site.urls),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+  #  path('admin/', admin.site.urls),
+    url('accounts/', include('django.contrib.auth.urls')),
+    url('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]

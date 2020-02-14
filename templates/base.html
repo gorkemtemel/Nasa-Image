@@ -5,12 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"  rossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+         <script src="{% static 'js/jquery.min.js'%}" ></script>
+
+    <script src="{% static 'js/bootstrap.min.js'%}" ></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <title>NASA-İmage Of The Day</title>
   </head>
   <body>
     <div class="container">
       <div class="row "><!-- justify-content-center -->
-        <div class="col-8">
+        <div class="col-12">
           <h1 class="mt-2">NASA-Image Of The Day</h1>
           <hr class="mt-0 mb-4">
           {% block body %}
@@ -18,7 +24,7 @@
         </div>
       </div>
     </div>
-   <script src="{% static 'js/jquery.min.js'%}" ></script></script>
-        <script src="{% static 'js/bootstrap.min.js'%}" ></script>
+
+
   </body>
 </html>
